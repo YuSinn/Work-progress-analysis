@@ -16,7 +16,13 @@ with open('Progress.csv', 'a', newline='') as file:
     dias = int(input('Cuantos dias vas a introducir? '))
     for i in range(1,dias+1):
         dia = input("Introduce el dia: ")
-        mes = input("Introduce el mes: ")
-        tran = input("Introduce el numero de transcripciones: ")
+        if dia in range(1,32):
+            mes = input("Introduzca el mes: ")
+        else:
+            dia = input("Por favor introduzca un numero de 1 a 31: ")
+        if mes in months:
+            tran = input("Introduce el numero de transcripciones: ")
+        else:
+            mes = input("Por favor introduzca un mes valido! ")
+            tran = tran = input("Introduce el numero de transcripciones: ")    
         writer.writerow([dia, mes, tran])
-    
