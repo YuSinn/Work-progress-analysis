@@ -4,13 +4,15 @@
 import csv
 import pandas as pd
 import numpy as np
-#import 'Write csv.py'
+from Write_csv import *
 
 
 months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre','Noviembre', 'Diciembre']
 en, fe, ma, ab, may, jun, jul, ag, se, oc, no, dic = list(range(1,32)), list(range(1,29)), list(range(1,32)), list(range(1, 31)), list(range(1, 32)), list(range(1, 31)), list(range(1, 32)), list(range(1, 32)), list(range(1, 31)), list(range(1, 32)), list(range(1, 31)), list(range(1, 32))
 
-with open('Progress.csv', 'a', newline='') as file:
+mes_to_work = input('Que mes quieres editar? ')
+
+with open(mes_to_work, 'a', newline='') as file:
     writer = csv.writer(file)
     dias = int(input('Cuantos dias vas a introducir? '))
     if dias > 0:
@@ -38,16 +40,31 @@ with open('Progress.csv', 'a', newline='') as file:
     else:
         pass
 
-work_df = pd.read_csv('Progress.csv')
+work_df = pd.read_csv(mes_to_work)
 
 def work_analisys(df):
-    print('           ############ Work progress analisys ############           ')
-    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print('1.) The average transcriptions for ' + str(work_df['Month'][0]) + ' is ' + str(np.average(work_df['Transcriptions'])))
-    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print('2.) Total transcriptions in ' + str(work_df['Month'][0]) +' is ' +str(np.sum(work_df['Transcriptions'])) +' of ' + str(1890*np.count_nonzero(work_df['Transcriptions'])))
-    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print('3.) The objective of the month was surpased with ' + str(np.sum(work_df['Transcriptions'])-1890*np.count_nonzero(work_df['Transcriptions'])) + ' transcriptions')
-    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print('4.) The revenue for ' + str(work_df.Month[0]) + ' is ' + str(round((np.sum(work_df['Transcriptions'])-1890*np.count_nonzero(work_df['Transcriptions']))*0.028,2)) +'€')      
+    if work_df['Month'][0] == 'Agosto':
+        print('           ############ Work progress analisys ############           ')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('1.) The average transcriptions for ' + str(work_df['Month'][0]) + ' is ' + str((int(round(np.average(work_df['Transcriptions']),0))))+'.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('2.) Total transcriptions in ' + str(work_df['Month'][0]) +' is ' +str(np.sum(work_df['Transcriptions'])) +' of ' + str(1890*np.count_nonzero(work_df['Transcriptions']))+'.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('3.) The objective of the month was surpased with ' + str(np.sum(work_df['Transcriptions'])-1890*np.count_nonzero(work_df['Transcriptions'])) + ' transcriptions.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('4.) The revenue for ' + str(work_df.Month[0]) + ' is ' + str(round((np.sum(work_df['Transcriptions'])-1890*np.count_nonzero(work_df['Transcriptions']))*0.028,2)) +'€.')      
+    else:
+        print('           ############ Work progress analisys ############           ')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('1.) The average transcriptions for ' + str(work_df['Month'][0]) + ' is ' + str((int(round(np.average(work_df['Transcriptions']),0))))+'.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('2.) Total transcriptions in ' + str(work_df['Month'][0]) +' is ' +str(np.sum(work_df['Transcriptions'])) +' of ' + str(2227*np.count_nonzero(work_df['Transcriptions']))+'.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('3.) The objective of the month was surpased with ' + str(np.sum(work_df['Transcriptions'])-2227*np.count_nonzero(work_df['Transcriptions'])) + ' transcriptions.')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('4.) The revenue for ' + str(work_df.Month[0]) + ' is ' + str(round((np.sum(work_df['Transcriptions'])-2227*np.count_nonzero(work_df['Transcriptions']))*0.028,2)) +'€.')
 work_analisys(work_df)
+if input('Quieres introducir un nuevo mes? (Si/No) ') == 'Si':
+    new_month(input('Introduzca el nuevo mes: '))
+else:
+    pass
